@@ -12,7 +12,6 @@ const EditExam = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('60');
-  //TEST
   const [passingScore, setPassingScore] = useState('40');
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
