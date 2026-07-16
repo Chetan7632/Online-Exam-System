@@ -12,6 +12,7 @@ const EditExam = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState('60');
+  //TEST
   const [passingScore, setPassingScore] = useState('40');
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ const EditExam = () => {
           throw new Error('Failed to retrieve exam details');
         }
         const data = await response.json();
-        
+
         setTitle(data.title || '');
         setDescription(data.description || '');
         setDuration(data.duration?.toString() || '60');
@@ -92,7 +93,7 @@ const EditExam = () => {
     };
 
     setQuestions([...questions, newQ]);
-    
+
     // Reset Form
     setManualText('');
     setManualOptions(['', '', '', '']);
@@ -140,7 +141,7 @@ const EditExam = () => {
 
   const handleAddAiQuestionsToDraft = () => {
     if (aiPreviewQuestions.length === 0) return;
-    
+
     const formatted = aiPreviewQuestions.map((q, idx) => ({
       ...q,
       id: `ai_${idx}_${Date.now()}`
@@ -233,7 +234,7 @@ const EditExam = () => {
           justifyContent: 'center',
           transition: 'var(--transition-smooth)'
         }} onMouseOver={e => e.currentTarget.style.color = '#00e5ff'}
-           onMouseOut={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
+          onMouseOut={e => e.currentTarget.style.color = 'var(--text-secondary)'}>
           <ChevronLeft size={18} />
         </Link>
         <div>
@@ -252,7 +253,7 @@ const EditExam = () => {
           {/* Exam Info Card */}
           <div className="glass-panel" style={{ padding: '28px' }}>
             <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: '#f3f4f6' }}>1. Exam Properties</h3>
-            
+
             <div className="form-group">
               <label className="form-label">Exam Title</label>
               <input
@@ -581,7 +582,7 @@ const EditExam = () => {
                 <h4 style={{ color: '#00e5ff', fontSize: '0.95rem', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Check size={16} /> Generated Questions Preview ({aiPreviewQuestions.length})
                 </h4>
-                
+
                 <div style={{ maxHeight: '250px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px', paddingRight: '4px' }}>
                   {aiPreviewQuestions.map((q, idx) => (
                     <div key={idx} style={{
