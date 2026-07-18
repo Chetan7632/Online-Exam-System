@@ -24,7 +24,8 @@ const Navbar = () => {
       position: 'sticky',
       top: '20px',
       zIndex: 100,
-      border: '1px solid rgba(0, 229, 255, 0.1)'
+      border: '1px solid rgba(0, 229, 255, 0.1)',
+      gap: '24px'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <Award size={24} color="#00e5ff" style={{ filter: 'drop-shadow(0 0 8px rgba(0,229,255,0.5))' }} />
@@ -40,15 +41,13 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
-        <Link to="/" style={{
-          color: 'var(--text-secondary)',
+      <div style={{ display: 'flex', alignItems: 'center', gap: '28px', marginLeft: '48px', marginRight: 'auto' }}>
+        <Link to="/" className="btn btn-secondary" style={{
           textDecoration: 'none',
-          fontSize: '0.95rem',
-          fontWeight: '500',
-          transition: 'var(--transition-smooth)'
-        }} onMouseOver={e => e.target.style.color = '#00e5ff'}
-           onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
+          padding: '8px 16px',
+          fontSize: '0.85rem',
+          border: '1px solid rgba(255, 255, 255, 0.05)'
+        }}>
           Home
         </Link>
         {user && (
@@ -92,7 +91,7 @@ const Navbar = () => {
         )}
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginLeft: '32px' }}>
         {user ? (
           <>
             <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
