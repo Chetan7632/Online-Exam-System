@@ -133,6 +133,9 @@ const Home = () => {
         <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
           © 2026 Online Exam Proctored Space. All rights reserved. Registered under global secure examination compliance acts.
         </p>
+        <p style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', marginTop: '12px', fontWeight: '500', letterSpacing: '0.5px' }}>
+          Designed & Developed by Chetan Badadhe
+        </p>
       </footer>
     </div>
   );
