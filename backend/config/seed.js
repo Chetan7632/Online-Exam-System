@@ -22,14 +22,14 @@ export const seedDatabase = async () => {
     // 2. Create Users
     const teacher = await User.create({
       name: 'Dr. Clara Oswald',
-      email: 'teacher@neural.com',
+      email: 'teacher@onlineexam.com',
       password: teacherPassword,
       role: 'teacher'
     });
 
     const student = await User.create({
       name: 'Danny Pink',
-      email: 'student@neural.com',
+      email: 'student@onlineexam.com',
       password: studentPassword,
       role: 'student'
     });
@@ -38,8 +38,8 @@ export const seedDatabase = async () => {
     const studentId = student._id;
 
     console.log(`✅ Demo accounts initialized:`);
-    console.log(`   - Instructor: teacher@neural.com (teacher123)`);
-    console.log(`   - Candidate: student@neural.com (student123)`);
+    console.log(`   - Instructor: teacher@onlineexam.com (teacher123)`);
+    console.log(`   - Candidate: student@onlineexam.com (student123)`);
 
     // 3. Create Demo Exam
     const exam = await Exam.create({

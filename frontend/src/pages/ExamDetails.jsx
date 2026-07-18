@@ -98,7 +98,7 @@ const ExamDetails = () => {
   return (
     <div className="dashboard-container" style={{ maxWidth: '900px' }}>
       <div style={{ marginBottom: '32px' }}>
-        <h1 className="title-glow" style={{ fontSize: '2rem', marginBottom: '6px' }}>Neural Chamber Check-in</h1>
+        <h1 className="title-glow" style={{ fontSize: '2rem', marginBottom: '6px' }}>Secure Exam Chamber Check-in</h1>
         <p style={{ color: 'var(--text-secondary)' }}>Pre-flight authorization and hardware calibration workspace</p>
       </div>
 

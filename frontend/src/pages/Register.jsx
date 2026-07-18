@@ -71,7 +71,7 @@ const Register = () => {
             WebkitTextFillColor: 'transparent'
           }}>Create Profile</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', textAlign: 'center' }}>
-            Register your neural signature to begin
+            Register your exam credentials to begin
           </p>
         </div>
 

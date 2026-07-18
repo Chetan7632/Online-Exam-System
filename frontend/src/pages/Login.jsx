@@ -13,10 +13,10 @@ const Login = () => {
 
   const handleDemoFill = (role) => {
     if (role === 'teacher') {
-      setEmail('teacher@neural.com');
+      setEmail('teacher@onlineexam.com');
       setPassword('teacher123');
     } else {
-      setEmail('student@neural.com');
+      setEmail('student@onlineexam.com');
       setPassword('student123');
     }
   };
@@ -73,7 +73,7 @@ const Login = () => {
           </div>
           <h2 className="title-glow" style={{ fontSize: '1.5rem', marginBottom: '8px' }}>Login Portal</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', textAlign: 'center' }}>
-            Welcome back to Neural Exam Proctored Space
+            Welcome back to Online Exam Proctored Space
           </p>
         </div>
 
@@ -140,7 +140,7 @@ const Login = () => {
           </div>
 
           <button type="submit" className="btn btn-primary" style={{ width: '100%', marginBottom: '20px' }} disabled={loadingLocal}>
-            {loadingLocal ? 'Connecting Neural Link...' : 'Access Portal'}
+            {loadingLocal ? 'Connecting Secure Link...' : 'Access Portal'}
           </button>
         </form>
 

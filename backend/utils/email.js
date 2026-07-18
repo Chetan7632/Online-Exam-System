@@ -4,7 +4,7 @@ const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = process.env.SMTP_PORT || 587;
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASS = process.env.SMTP_PASS;
-const SMTP_FROM = process.env.SMTP_FROM || 'noreply@neuralexam.com';
+const SMTP_FROM = process.env.SMTP_FROM || 'noreply@onlineexam.com';
 
 /**
  * Send simulated or actual email notifications
@@ -25,7 +25,7 @@ export const sendEmailNotification = async ({ to, subject, html, text }) => {
       });
 
       const info = await transporter.sendMail({
-        from: `"Neural Exam Portal" <${SMTP_FROM}>`,
+        from: `"Online Exam Portal" <${SMTP_FROM}>`,
         to,
         subject,
         text,
@@ -44,7 +44,7 @@ export const sendEmailNotification = async ({ to, subject, html, text }) => {
 ========================================================================
 ✉️  SIMULATED EMAIL NOTIFICATION DISPATCHED
 ========================================================================
-From: Neural Exam Portal <${SMTP_FROM}>
+From: Online Exam Portal <${SMTP_FROM}>
 To: <${to}>
 Subject: ${subject}
 ------------------------------------------------------------------------
@@ -66,7 +66,7 @@ export const sendResultEmail = async (userEmail, userName, examTitle, score, max
   const scorePercent = Math.round((score / maxScore) * 100);
   const statusString = isPassed ? 'PASSED' : 'NOT PASSED';
   
-  const text = `Hello ${userName},\n\nYour grades for the exam "${examTitle}" have been evaluated.\n\nScore: ${score} / ${maxScore} (${scorePercent}%)\nResult: ${statusString}\n\nLog in to the portal to review the detailed AI feedback and correct answers.\n\nBest regards,\nNeural Exam Portal Team`;
+  const text = `Hello ${userName},\n\nYour grades for the exam "${examTitle}" have been evaluated.\n\nScore: ${score} / ${maxScore} (${scorePercent}%)\nResult: ${statusString}\n\nLog in to the portal to review the detailed AI feedback and correct answers.\n\nBest regards,\nOnline Exam Portal Team`;
   
   const html = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #1f2937; border-radius: 8px; background-color: #0b0f19; color: #f3f4f6;">
@@ -80,7 +80,7 @@ export const sendResultEmail = async (userEmail, userName, examTitle, score, max
       </div>
       <p style="font-size: 14px; color: #9ca3af;">Please access the student portal to review correct answers and your personalized cognitive study roadmap.</p>
       <footer style="margin-top: 30px; border-top: 1px solid #1f2937; padding-top: 15px; font-size: 12px; color: #4b5563; text-align: center;">
-        © 2026 Neural Exam Proctored Space. All rights reserved.
+        © 2026 Online Exam Proctored Space. All rights reserved.
       </footer>
     </div>
   `;
@@ -97,27 +97,27 @@ export const sendResultEmail = async (userEmail, userName, examTitle, score, max
  * Dispatch welcome email to registered user
  */
 export const sendWelcomeEmail = async (userEmail, userName, role) => {
-  const text = `Hello ${userName},\n\nWelcome to Neural Exam Portal!\n\nYour profile has been created successfully as a ${role}.\n\nLog in to begin accessing or configuring exam chambers.\n\nBest regards,\nNeural Exam Portal Team`;
+  const text = `Hello ${userName},\n\nWelcome to Online Exam Portal!\n\nYour profile has been created successfully as a ${role}.\n\nLog in to begin accessing or configuring exam chambers.\n\nBest regards,\nOnline Exam Portal Team`;
   
   const html = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #1f2937; border-radius: 8px; background-color: #0b0f19; color: #f3f4f6;">
       <h2 style="color: #bd00ff; font-size: 20px; border-bottom: 1px solid #1f2937; padding-bottom: 10px;">✨ Profile Signature Registered</h2>
       <p style="font-size: 15px;">Hello <strong>${userName}</strong>,</p>
-      <p style="font-size: 15px;">Welcome to the Neural Exam system. Your candidate signature has been mapped to our registry.</p>
+      <p style="font-size: 15px;">Welcome to the Online Exam system. Your candidate signature has been mapped to our registry.</p>
       <div style="background-color: rgba(255,255,255,0.02); border: 1px solid #1f2937; padding: 15px; border-radius: 6px; margin: 20px 0;">
         <p style="margin: 5px 0; font-size: 14px;"><strong>Account Name:</strong> ${userName}</p>
         <p style="margin: 5px 0; font-size: 14px;"><strong>Registry Role:</strong> <span style="color: #bd00ff; font-weight: bold; text-transform: uppercase;">${role}</span></p>
       </div>
       <p style="font-size: 14px; color: #9ca3af;">Get ready to enter the examination workspace or design proctored assessments.</p>
       <footer style="margin-top: 30px; border-top: 1px solid #1f2937; padding-top: 15px; font-size: 12px; color: #4b5563; text-align: center;">
-        © 2026 Neural Exam Proctored Space. All rights reserved.
+        © 2026 Online Exam Proctored Space. All rights reserved.
       </footer>
     </div>
   `;
 
   return sendEmailNotification({
     to: userEmail,
-    subject: `Welcome to Neural Exam System, ${userName}!`,
+    subject: `Welcome to Online Exam System, ${userName}!`,
     text,
     html
   });

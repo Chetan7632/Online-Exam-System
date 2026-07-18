@@ -90,7 +90,7 @@ const StudentDashboard = () => {
       }}>
         <div>
           <h1 className="title-glow" style={{ fontSize: '1.8rem', marginBottom: '6px' }}>Student Workspace</h1>
-          <p style={{ color: 'var(--text-secondary)' }}>Welcome to the neural examination suite. Select a chamber below to begin.</p>
+          <p style={{ color: 'var(--text-secondary)' }}>Welcome to the online examination suite. Select a chamber below to begin.</p>
         </div>
         <div style={{
           display: 'flex',

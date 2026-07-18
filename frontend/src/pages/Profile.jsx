@@ -94,7 +94,7 @@ const Profile = () => {
           
           <h2 className="title-glow" style={{ fontSize: '1.6rem', marginBottom: '8px' }}>User Profile settings</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
-            Modify your credentials and neural account properties
+            Modify your credentials and user account settings
           </p>
         </div>
 
