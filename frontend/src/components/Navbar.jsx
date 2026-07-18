@@ -12,8 +12,6 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  if (!user) return null;
-
   return (
     <nav className="glass-panel" style={{
       margin: '20px auto',
@@ -43,95 +41,120 @@ const Navbar = () => {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
-        {user.role === 'teacher' ? (
-          <>
-            <Link to="/teacher-dashboard" style={{
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-              fontSize: '0.95rem',
-              fontWeight: '500',
-              transition: 'var(--transition-smooth)'
-            }} onMouseOver={e => e.target.style.color = '#00e5ff'}
-               onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
-              Exams
-            </Link>
-            <Link to="/create-exam" style={{
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-              fontSize: '0.95rem',
-              fontWeight: '500',
-              transition: 'var(--transition-smooth)'
-            }} onMouseOver={e => e.target.style.color = '#00e5ff'}
-               onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
-              Create Workspace
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link to="/student-dashboard" style={{
-              color: 'var(--text-secondary)',
-              textDecoration: 'none',
-              fontSize: '0.95rem',
-              fontWeight: '500',
-              transition: 'var(--transition-smooth)'
-            }} onMouseOver={e => e.target.style.color = '#00e5ff'}
-               onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
-              Dashboard
-            </Link>
-          </>
+        <Link to="/" style={{
+          color: 'var(--text-secondary)',
+          textDecoration: 'none',
+          fontSize: '0.95rem',
+          fontWeight: '500',
+          transition: 'var(--transition-smooth)'
+        }} onMouseOver={e => e.target.style.color = '#00e5ff'}
+           onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
+          Home
+        </Link>
+        {user && (
+          user.role === 'teacher' ? (
+            <>
+              <Link to="/teacher-dashboard" style={{
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                fontSize: '0.95rem',
+                fontWeight: '500',
+                transition: 'var(--transition-smooth)'
+              }} onMouseOver={e => e.target.style.color = '#00e5ff'}
+                 onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
+                Exams
+              </Link>
+              <Link to="/create-exam" style={{
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                fontSize: '0.95rem',
+                fontWeight: '500',
+                transition: 'var(--transition-smooth)'
+              }} onMouseOver={e => e.target.style.color = '#00e5ff'}
+                 onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
+                Create Workspace
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/student-dashboard" style={{
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                fontSize: '0.95rem',
+                fontWeight: '500',
+                transition: 'var(--transition-smooth)'
+              }} onMouseOver={e => e.target.style.color = '#00e5ff'}
+                 onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>
+                Dashboard
+              </Link>
+            </>
+          )
         )}
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: 'rgba(255,255,255,0.03)',
-            padding: '6px 14px',
-            borderRadius: '20px',
-            border: '1px solid rgba(255,255,255,0.05)',
-            cursor: 'pointer',
-            transition: 'var(--transition-smooth)'
-          }} onMouseOver={e => e.currentTarget.style.borderColor = 'rgba(0,229,255,0.3)'}
-             onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
-            <User size={16} color="var(--text-secondary)" />
-            <span style={{ fontSize: '0.85rem', fontWeight: '500' }}>{user.name}</span>
-            <span style={{
-              fontSize: '0.7rem',
-              textTransform: 'uppercase',
-              background: user.role === 'teacher' ? 'rgba(189, 0, 255, 0.2)' : 'rgba(0, 229, 255, 0.15)',
-              color: user.role === 'teacher' ? '#df6bff' : '#00e5ff',
-              padding: '2px 8px',
-              borderRadius: '10px',
-              fontWeight: '700',
-              border: `1px solid ${user.role === 'teacher' ? 'rgba(189,0,255,0.3)' : 'rgba(0,229,255,0.3)'}`
-            }}>
-              {user.role}
-            </span>
-          </div>
-        </Link>
+        {user ? (
+          <>
+            <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255,255,255,0.03)',
+                padding: '6px 14px',
+                borderRadius: '20px',
+                border: '1px solid rgba(255,255,255,0.05)',
+                cursor: 'pointer',
+                transition: 'var(--transition-smooth)'
+              }} onMouseOver={e => e.currentTarget.style.borderColor = 'rgba(0,229,255,0.3)'}
+                 onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
+                <User size={16} color="var(--text-secondary)" />
+                <span style={{ fontSize: '0.85rem', fontWeight: '500' }}>{user.name}</span>
+                <span style={{
+                  fontSize: '0.7rem',
+                  textTransform: 'uppercase',
+                  background: user.role === 'teacher' ? 'rgba(189, 0, 255, 0.2)' : 'rgba(0, 229, 255, 0.15)',
+                  color: user.role === 'teacher' ? '#df6bff' : '#00e5ff',
+                  padding: '2px 8px',
+                  borderRadius: '10px',
+                  fontWeight: '700',
+                  border: `1px solid ${user.role === 'teacher' ? 'rgba(189,0,255,0.3)' : 'rgba(0,229,255,0.3)'}`
+                }}>
+                  {user.role}
+                </span>
+              </div>
+            </Link>
 
-        <button onClick={handleLogout} className="btn btn-secondary" style={{
-          padding: '8px 12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'rgba(239, 68, 68, 0.08)',
-          border: '1px solid rgba(239, 68, 68, 0.2)',
-          borderRadius: '8px',
-          cursor: 'pointer',
-          transition: 'var(--transition-smooth)'
-        }} onMouseOver={e => {
-          e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)';
-          e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.5)';
-        }} onMouseOut={e => {
-          e.currentTarget.style.background = 'rgba(239, 68, 68, 0.08)';
-          e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.2)';
-        }}>
-          <LogOut size={16} color="#ff6b6b" />
-        </button>
+            <button onClick={handleLogout} className="btn btn-secondary" style={{
+              padding: '8px 12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(239, 68, 68, 0.08)',
+              border: '1px solid rgba(239, 68, 68, 0.2)',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              transition: 'var(--transition-smooth)'
+            }} onMouseOver={e => {
+              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)';
+              e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+            }} onMouseOut={e => {
+              e.currentTarget.style.background = 'rgba(239, 68, 68, 0.08)';
+              e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.2)';
+            }}>
+              <LogOut size={16} color="#ff6b6b" />
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="btn btn-secondary" style={{ textDecoration: 'none', padding: '8px 16px', fontSize: '0.85rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+              Access Portal
+            </Link>
+            <Link to="/register" className="btn btn-primary" style={{ textDecoration: 'none', padding: '8px 16px', fontSize: '0.85rem' }}>
+              Create Profile
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

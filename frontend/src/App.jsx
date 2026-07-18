@@ -18,6 +18,7 @@ import CreateExam from './pages/CreateExam';
 import EditExam from './pages/EditExam';
 import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
+import Home from './pages/Home';
 
 // Home redirect helper to route logged-in users to their correct workspace
 const HomeRedirect = () => {
@@ -117,7 +118,7 @@ function App() {
               />
 
               {/* Root Handler */}
-              <Route path="/" element={<HomeRedirect />} />
+              <Route path="/" element={<Home />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

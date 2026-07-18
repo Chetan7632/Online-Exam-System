@@ -4,6 +4,27 @@ import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// @desc    Get public exam metadata
+// @route   GET /api/exams/public
+// @access  Public
+router.get('/public', async (req, res) => {
+  try {
+    const exams = await Exam.find({}, 'title description duration passingScore questions');
+    const sanitized = exams.map(e => ({
+      _id: e._id,
+      title: e.title,
+      description: e.description,
+      duration: e.duration,
+      passingScore: e.passingScore,
+      questionsCount: e.questions ? e.questions.length : 0
+    }));
+    res.json(sanitized);
+  } catch (error) {
+    console.error('Fetch public exams error:', error);
+    res.status(500).json({ message: 'Server error fetching public exams', error: error.message });
+  }
+});
+
 // @desc    Get all exams (for students/teachers)
 // @route   GET /api/exams
 // @access  Private
