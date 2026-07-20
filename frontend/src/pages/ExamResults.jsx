@@ -265,7 +265,7 @@ const ExamResults = () => {
                 </div>
 
                 {/* Question text */}
-                <p style={{ fontWeight: '500', fontSize: '1rem', marginBottom: '20px', color: '#f3f4f6' }}>{q.questionText}</p>
+                <p style={{ fontWeight: '500', fontSize: '1rem', marginBottom: '20px', color: 'var(--text-primary)' }}>{q.questionText}</p>
 
                 {/* MCQ details */}
                 {q.questionType === 'mcq' && q.options && (

@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { LogOut, BookOpen, ShieldAlert, Award, User } from 'lucide-react';
+import { ThemeContext } from '../context/ThemeContext';
+import { LogOut, BookOpen, ShieldAlert, Award, User, Sun, Moon } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -99,14 +101,14 @@ const Navbar = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: 'rgba(255,255,255,0.03)',
+                background: 'var(--bg-subtle)',
                 padding: '6px 14px',
                 borderRadius: '20px',
-                border: '1px solid rgba(255,255,255,0.05)',
+                border: '1px solid var(--border-subtle)',
                 cursor: 'pointer',
                 transition: 'var(--transition-smooth)'
               }} onMouseOver={e => e.currentTarget.style.borderColor = 'rgba(0,229,255,0.3)'}
-                 onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'}>
+                 onMouseOut={e => e.currentTarget.style.borderColor = 'var(--border-subtle)'}>
                 <User size={16} color="var(--text-secondary)" />
                 <span style={{ fontSize: '0.85rem', fontWeight: '500' }}>{user.name}</span>
                 <span style={{
@@ -146,7 +148,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/login" className="btn btn-secondary" style={{ textDecoration: 'none', padding: '8px 16px', fontSize: '0.85rem', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <Link to="/login" className="btn btn-secondary" style={{ textDecoration: 'none', padding: '8px 16px', fontSize: '0.85rem', border: '1px solid var(--border-subtle)' }}>
               Access Portal
             </Link>
             <Link to="/register" className="btn btn-primary" style={{ textDecoration: 'none', padding: '8px 16px', fontSize: '0.85rem' }}>
@@ -154,6 +156,17 @@ const Navbar = () => {
             </Link>
           </>
         )}
+        <button 
+          onClick={toggleTheme} 
+          className="theme-toggle-btn"
+          aria-label="Toggle Theme"
+        >
+          {theme === 'dark' ? (
+            <Sun size={18} color="#00e5ff" style={{ filter: 'drop-shadow(0 0 4px rgba(0,229,255,0.4))' }} />
+          ) : (
+            <Moon size={18} color="#7209b7" style={{ filter: 'drop-shadow(0 0 4px rgba(114,9,183,0.4))' }} />
+          )}
+        </button>
       </div>
     </nav>
   );

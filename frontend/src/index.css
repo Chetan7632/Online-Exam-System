@@ -345,3 +345,164 @@ select.form-input {
     page-break-inside: auto !important;
   }
 }
+
+/* ==========================================
+   Light Theme Override System
+   ========================================== */
+:root.light-theme {
+  --bg-main: #f5f7fb;
+  --bg-surface: rgba(255, 255, 255, 0.75);
+  --bg-surface-hover: rgba(255, 255, 255, 0.95);
+  --border-glow: rgba(0, 180, 216, 0.25);
+  --border-glow-active: rgba(0, 180, 216, 0.6);
+  
+  --accent-cyan: #0077b6; /* High contrast cyan/blue for readability */
+  --accent-purple: #7209b7;
+  --accent-pink: #d90429;
+  
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  
+  --color-success: #059669;
+  --color-error: #dc2626;
+  --color-warning: #d97706;
+  
+  --shadow-neon: 0 4px 12px rgba(0, 119, 182, 0.08);
+  --shadow-neon-strong: 0 8px 24px rgba(0, 119, 182, 0.16);
+  --shadow-purple: 0 4px 12px rgba(114, 9, 183, 0.08);
+  
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --bg-subtle: rgba(0, 0, 0, 0.03);
+}
+
+/* Light Theme Body Background */
+:root.light-theme body {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(114, 9, 183, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 119, 182, 0.04) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(248, 250, 252, 0.8) 0px, #f1f5f9 100%);
+}
+
+/* Glassmorphism Overrides */
+:root.light-theme .glass-panel {
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+}
+
+:root.light-theme .glass-panel:hover {
+  border-color: var(--border-glow);
+}
+
+:root.light-theme .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+:root.light-theme .glass-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--border-glow);
+  box-shadow: 0 6px 20px rgba(0, 119, 182, 0.08);
+}
+
+/* Form Controls */
+:root.light-theme .form-input {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--text-primary);
+}
+
+:root.light-theme .form-input:focus {
+  background: #ffffff;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.15);
+}
+
+/* Dropdown custom background */
+:root.light-theme select.form-input {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+/* Buttons */
+:root.light-theme .btn-secondary {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-primary);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:root.light-theme .btn-secondary:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+:root.light-theme .btn-primary {
+  color: #ffffff;
+}
+
+/* Typography & Visual Overrides */
+:root.light-theme h1,
+:root.light-theme h2,
+:root.light-theme h3,
+:root.light-theme h4,
+:root.light-theme h5,
+:root.light-theme h6 {
+  color: var(--text-primary) !important;
+}
+
+:root.light-theme .title-glow {
+  background: linear-gradient(to right, #0077b6, #1e293b, #7209b7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+/* Theme Toggle Button Styling */
+.theme-toggle-btn {
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-cyan);
+  transform: scale(1.05);
+}
+
+:root.light-theme .theme-toggle-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+:root.light-theme .theme-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-cyan);
+}
+
+/* Custom Scrollbars in Light Mode */
+:root.light-theme ::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+:root.light-theme ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+:root.light-theme ::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* Global Subtle borders & backgrounds */
+:root {
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --bg-subtle: rgba(255, 255, 255, 0.03);
+}

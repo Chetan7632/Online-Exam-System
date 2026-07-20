@@ -610,7 +610,7 @@ const TakeExam = () => {
                       style={{ transform: 'scale(1.15)', accentColor: '#00e5ff' }}
                     />
                     <span style={{
-                      color: activeAnswer === idx.toString() ? '#f3f4f6' : 'var(--text-secondary)',
+                      color: activeAnswer === idx.toString() ? 'var(--text-primary)' : 'var(--text-secondary)',
                       fontSize: '0.95rem',
                       fontWeight: activeAnswer === idx.toString() ? '600' : '400'
                     }}>{opt}</span>
