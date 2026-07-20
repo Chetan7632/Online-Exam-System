@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Lock, Mail, Award, CheckCircle } from 'lucide-react';
+import { Lock, Mail, CheckCircle } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -69,7 +69,15 @@ const Login = () => {
             border: '1px solid rgba(0, 229, 255, 0.3)',
             boxShadow: '0 0 15px rgba(0, 229, 255, 0.2)'
           }}>
-            <Award size={32} color="#00e5ff" />
+            <img 
+              src="/logo.png" 
+              alt="Logo" 
+              style={{ 
+                height: '32px', 
+                width: '32px', 
+                objectFit: 'contain'
+              }} 
+            />
           </div>
           <h2 className="title-glow" style={{ fontSize: '1.5rem', marginBottom: '8px' }}>Login Portal</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', textAlign: 'center' }}>

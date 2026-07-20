@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { ThemeContext } from '../context/ThemeContext';
-import { LogOut, BookOpen, ShieldAlert, Award, User, Sun, Moon } from 'lucide-react';
+import { LogOut, BookOpen, ShieldAlert, User, Sun, Moon } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -30,7 +30,16 @@ const Navbar = () => {
       gap: '24px'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <Award size={24} color="#00e5ff" style={{ filter: 'drop-shadow(0 0 8px rgba(0,229,255,0.5))' }} />
+        <img 
+          src="/logo.png" 
+          alt="Online Exam Logo" 
+          style={{ 
+            height: '24px', 
+            width: '24px', 
+            objectFit: 'contain',
+            filter: 'drop-shadow(0 0 8px rgba(0,229,255,0.4))'
+          }} 
+        />
         <Link to="/" style={{ textDecoration: 'none' }}>
           <span className="title-glow" style={{
             fontFamily: 'var(--font-display)',

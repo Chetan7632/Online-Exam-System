@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { User, Mail, Lock, UserCheck, Award } from 'lucide-react';
+import { User, Mail, Lock, UserCheck } from 'lucide-react';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -61,7 +61,15 @@ const Register = () => {
             border: '1px solid rgba(189, 0, 255, 0.3)',
             boxShadow: '0 0 15px rgba(189, 0, 255, 0.2)'
           }}>
-            <Award size={32} color="#bd00ff" />
+            <img 
+              src="/logo.png" 
+              alt="Logo" 
+              style={{ 
+                height: '32px', 
+                width: '32px', 
+                objectFit: 'contain'
+              }} 
+            />
           </div>
           <h2 className="title-glow" style={{
             fontSize: '1.5rem',
