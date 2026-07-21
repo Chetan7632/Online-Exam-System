@@ -31,6 +31,18 @@ const TakeExam = () => {
   const [aiScanStatus, setAiScanStatus] = useState('VERIFIED');
   const [aiScanLogs, setAiScanLogs] = useState(['Proctor link initialized.']);
 
+  // Mobile / responsive sidebar toggle states
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState(window.innerWidth <= 1024);
+  const [isProctorDrawerOpen, setIsProctorDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileOrTablet(window.innerWidth <= 1024);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Initial load
   useEffect(() => {
     const fetchExamAndInitialize = async () => {
@@ -336,191 +348,260 @@ const TakeExam = () => {
   const activeAnswer = studentAnswers.find(ans => ans.questionId === currentQuestion.id)?.studentAnswer || '';
   const isTimeLow = timeLeft < 300; // less than 5 minutes
 
-  return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '300px 1fr',
-      minHeight: '100vh',
-      background: '#070a0f',
-      fontFamily: 'var(--font-sans)'
-    }}>
-      {/* Sidebar: Webcam, Timer, Questions navigation */}
-      <aside style={{
-        background: 'rgba(10, 14, 23, 0.9)',
-        borderRight: '1px solid rgba(0, 229, 255, 0.1)',
-        padding: '24px',
+  const renderSidebarContents = () => (
+    <>
+      {/* Exam Timer */}
+      <div className="glass-card" style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '24px',
-        overflowY: 'auto'
+        alignItems: 'center',
+        borderColor: isTimeLow ? 'rgba(239, 68, 68, 0.3)' : 'rgba(0, 229, 255, 0.15)',
+        animation: isTimeLow ? 'pulse-glow 1.5s infinite ease-in-out' : 'none'
       }}>
-        {/* Exam Timer */}
-        <div className="glass-card" style={{
+        <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Remaining Time</span>
+        <div style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '2rem',
+          fontWeight: '700',
+          color: isTimeLow ? '#ef4444' : '#00e5ff',
+          marginTop: '4px',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
-          borderColor: isTimeLow ? 'rgba(239, 68, 68, 0.3)' : 'rgba(0, 229, 255, 0.15)',
-          animation: isTimeLow ? 'pulse-glow 1.5s infinite ease-in-out' : 'none'
+          gap: '8px'
         }}>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Remaining Time</span>
+          <Clock size={24} /> {formatTime(timeLeft)}
+        </div>
+      </div>
+
+      {/* Proctor Feed */}
+      <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{
+          width: '100%',
+          aspectRatio: '4/3',
+          background: '#000',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          position: 'relative',
+          marginBottom: '12px'
+        }}>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: webcamActive ? 'block' : 'none' }}
+          />
+          {/* Cyber HUD Overlay */}
           <div style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '2rem',
+            position: 'absolute',
+            top: '8px',
+            left: '8px',
+            background: aiScanStatus === 'VERIFIED' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)',
+            color: '#fff',
+            fontSize: '0.65rem',
             fontWeight: '700',
-            color: isTimeLow ? '#ef4444' : '#00e5ff',
-            marginTop: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
+            padding: '2px 6px',
+            borderRadius: '4px',
+            fontFamily: 'var(--font-display)'
           }}>
-            <Clock size={24} /> {formatTime(timeLeft)}
+            AI PROCTOR: {aiScanStatus}
           </div>
-        </div>
 
-        {/* Proctor Feed */}
-        <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {/* Target outline */}
           <div style={{
-            width: '100%',
-            aspectRatio: '4/3',
-            background: '#000',
+            position: 'absolute',
+            border: `1px dashed ${aiScanStatus === 'VERIFIED' ? '#00e5ff' : '#ff4757'}`,
+            width: '60%',
+            height: '60%',
+            top: '20%',
+            left: '20%',
+            pointerEvents: 'none',
             borderRadius: '8px',
-            overflow: 'hidden',
-            position: 'relative',
-            marginBottom: '12px'
-          }}>
-            <video
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: webcamActive ? 'block' : 'none' }}
-            />
-            {/* Cyber HUD Overlay */}
-            <div style={{
-              position: 'absolute',
-              top: '8px',
-              left: '8px',
-              background: aiScanStatus === 'VERIFIED' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)',
-              color: '#fff',
-              fontSize: '0.65rem',
-              fontWeight: '700',
-              padding: '2px 6px',
-              borderRadius: '4px',
-              fontFamily: 'var(--font-display)'
-            }}>
-              AI PROCTOR: {aiScanStatus}
-            </div>
-
-            {/* Target outline */}
-            <div style={{
-              position: 'absolute',
-              border: `1px dashed ${aiScanStatus === 'VERIFIED' ? '#00e5ff' : '#ff4757'}`,
-              width: '60%',
-              height: '60%',
-              top: '20%',
-              left: '20%',
-              pointerEvents: 'none',
-              borderRadius: '8px',
-              opacity: 0.5
-            }} />
-          </div>
-
-          <div style={{ width: '100%', fontSize: '0.75rem' }}>
-            <strong style={{ display: 'block', color: 'var(--text-secondary)', marginBottom: '6px', textTransform: 'uppercase' }}>Proc-Feed Activity Logs:</strong>
-            <div style={{
-              height: '80px',
-              overflowY: 'auto',
-              background: 'rgba(0,0,0,0.3)',
-              padding: '6px',
-              borderRadius: '4px',
-              color: 'var(--text-muted)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '4px'
-            }}>
-              {aiScanLogs.map((log, idx) => (
-                <div key={idx} style={{ lineBreak: 'anywhere' }}>▪ {log}</div>
-              ))}
-            </div>
-          </div>
+            opacity: 0.5
+          }} />
         </div>
 
-        {/* Violations tally */}
-        <div className="glass-card" style={{
-          padding: '16px',
-          borderColor: violations.length > 0 ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.03)',
-          background: violations.length > 0 ? 'rgba(239,68,68,0.02)' : 'rgba(25,32,49,0.3)'
-        }}>
-          <strong style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '6px', color: violations.length > 0 ? '#ef4444' : 'var(--text-secondary)' }}>
-            <ShieldAlert size={16} /> INTEGRITY WARNINGS: {violations.length} / 3
-          </strong>
-          {violations.length > 0 && (
-            <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              {violations.map((v, idx) => (
-                <div key={idx} style={{ fontSize: '0.7rem', color: '#ff7c7c' }}>
-                  ❌ {v.details}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Question Navigator Map */}
-        <div style={{ flex: 1 }}>
-          <h4 style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Chamber Progress</h4>
+        <div style={{ width: '100%', fontSize: '0.75rem' }}>
+          <strong style={{ display: 'block', color: 'var(--text-secondary)', marginBottom: '6px', textTransform: 'uppercase' }}>Proc-Feed Activity Logs:</strong>
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(5, 1fr)',
-            gap: '8px'
+            height: '80px',
+            overflowY: 'auto',
+            background: 'rgba(0,0,0,0.3)',
+            padding: '6px',
+            borderRadius: '4px',
+            color: 'var(--text-muted)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4px'
           }}>
-            {exam.questions.map((q, idx) => {
-              const isAnswered = studentAnswers.find(ans => ans.questionId === q.id)?.studentAnswer !== '';
-              const isActive = idx === currentQuestionIndex;
-              
-              return (
-                <button
-                  key={q.id}
-                  onClick={() => setCurrentQuestionIndex(idx)}
-                  style={{
-                    padding: '8px 0',
-                    borderRadius: '6px',
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '0.85rem',
-                    fontWeight: '700',
-                    cursor: 'pointer',
-                    border: '1px solid',
-                    transition: 'var(--transition-smooth)',
-                    backgroundColor: isActive 
-                      ? '#00e5ff' 
-                      : (isAnswered ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.02)'),
-                    borderColor: isActive 
-                      ? '#00e5ff' 
-                      : (isAnswered ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255,255,255,0.08)'),
-                    color: isActive 
-                      ? '#050811' 
-                      : (isAnswered ? '#10b981' : 'var(--text-secondary)')
-                  }}
-                >
-                  {idx + 1}
-                </button>
-              );
-            })}
+            {aiScanLogs.map((log, idx) => (
+              <div key={idx} style={{ lineBreak: 'anywhere' }}>▪ {log}</div>
+            ))}
           </div>
         </div>
+      </div>
 
-        <button onClick={handleSubmitAttemptManual} className="btn btn-danger" style={{ width: '100%' }}>
-          Submit Attempt
-        </button>
-      </aside>
+      {/* Violations tally */}
+      <div className="glass-card" style={{
+        padding: '16px',
+        borderColor: violations.length > 0 ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.03)',
+        background: violations.length > 0 ? 'rgba(239,68,68,0.02)' : 'rgba(25,32,49,0.3)'
+      }}>
+        <strong style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '6px', color: violations.length > 0 ? '#ef4444' : 'var(--text-secondary)' }}>
+          <ShieldAlert size={16} /> INTEGRITY WARNINGS: {violations.length} / 3
+        </strong>
+        {violations.length > 0 && (
+          <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            {violations.map((v, idx) => (
+              <div key={idx} style={{ fontSize: '0.7rem', color: '#ff7c7c' }}>
+                ❌ {v.details}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Question Navigator Map */}
+      <div style={{ flex: isMobileOrTablet ? 'none' : 1 }}>
+        <h4 style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Chamber Progress</h4>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(5, 1fr)',
+          gap: '8px'
+        }}>
+          {exam.questions.map((q, idx) => {
+            const isAnswered = studentAnswers.find(ans => ans.questionId === q.id)?.studentAnswer !== '';
+            const isActive = idx === currentQuestionIndex;
+            
+            return (
+              <button
+                key={q.id}
+                onClick={() => {
+                  setCurrentQuestionIndex(idx);
+                  if (isMobileOrTablet) setIsProctorDrawerOpen(false);
+                }}
+                style={{
+                  padding: '8px 0',
+                  borderRadius: '6px',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '0.85rem',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  border: '1px solid',
+                  transition: 'var(--transition-smooth)',
+                  backgroundColor: isActive 
+                    ? '#00e5ff' 
+                    : (isAnswered ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.02)'),
+                  borderColor: isActive 
+                    ? '#00e5ff' 
+                    : (isAnswered ? 'rgba(16, 185, 129, 0.4)' : 'rgba(255,255,255,0.08)'),
+                  color: isActive 
+                    ? '#050811' 
+                    : (isAnswered ? '#10b981' : 'var(--text-secondary)')
+                }}
+              >
+                {idx + 1}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <button onClick={() => {
+        if (isMobileOrTablet) setIsProctorDrawerOpen(false);
+        handleSubmitAttemptManual();
+      }} className="btn btn-danger" style={{ width: '100%' }}>
+        Submit Attempt
+      </button>
+    </>
+  );
+
+  return (
+    <div className="take-exam-layout">
+      {/* Sidebar: Webcam, Timer, Questions navigation (Only rendered on desktop) */}
+      {!isMobileOrTablet && (
+        <aside className="take-exam-sidebar">
+          {renderSidebarContents()}
+        </aside>
+      )}
+
+      {/* Proctor drawer overlay & content for mobile */}
+      {isMobileOrTablet && (
+        <>
+          <div 
+            className={`proctor-drawer-overlay ${isProctorDrawerOpen ? 'open' : ''}`}
+            onClick={() => setIsProctorDrawerOpen(false)}
+          />
+          <div className={`proctor-drawer-content ${isProctorDrawerOpen ? 'open' : ''}`}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <span className="title-glow" style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: '700', letterSpacing: '1px' }}>
+                PROCTOR CONSOLE
+              </span>
+              <button 
+                onClick={() => setIsProctorDrawerOpen(false)} 
+                className="btn btn-secondary" 
+                style={{ padding: '4px 8px', fontSize: '0.8rem' }}
+              >
+                Close
+              </button>
+            </div>
+            {renderSidebarContents()}
+          </div>
+        </>
+      )}
 
       {/* Main Panel: Question workspace */}
-      <main style={{
-        padding: '40px 60px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '30px',
-        overflowY: 'auto'
-      }}>
+      <main className="take-exam-main">
+        {/* Mobile Top Status Header (only visible on mobile/tablet) */}
+        {isMobileOrTablet && (
+          <div className="glass-panel" style={{
+            padding: '12px 20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            border: '1px solid rgba(0, 229, 255, 0.15)',
+            borderRadius: '8px',
+            background: 'rgba(10, 14, 23, 0.8)',
+            marginBottom: '10px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: isTimeLow ? '#ef4444' : '#00e5ff' }}>
+              <Clock size={16} />
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 'bold' }}>
+                {formatTime(timeLeft)}
+              </span>
+            </div>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span style={{
+                background: aiScanStatus === 'VERIFIED' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                color: aiScanStatus === 'VERIFIED' ? '#10b981' : '#ff5c5c',
+                border: `1px solid ${aiScanStatus === 'VERIFIED' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                padding: '2px 8px',
+                borderRadius: '10px',
+                fontSize: '0.7rem',
+                fontWeight: '700',
+                fontFamily: 'var(--font-display)'
+              }}>
+                AI: {aiScanStatus}
+              </span>
+              
+              <button 
+                onClick={() => setIsProctorDrawerOpen(true)}
+                className="btn btn-secondary"
+                style={{
+                  padding: '6px 12px',
+                  fontSize: '0.75rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  borderColor: violations.length > 0 ? '#ff4757' : 'rgba(255,255,255,0.08)'
+                }}
+              >
+                Console {violations.length > 0 && <span style={{ color: '#ff4757', fontWeight: 'bold' }}>({violations.length})</span>}
+              </button>
+            </div>
+          </div>
+        )}
         {/* Fullscreen restore error prompt */}
         {fullscreenError && (
           <div style={{
@@ -544,7 +625,7 @@ const TakeExam = () => {
         )}
 
         {/* Question workspace card */}
-        <div className="glass-panel" style={{ padding: '40px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="glass-panel responsive-panel-padding" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             {/* Header bar */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '16px', marginBottom: '28px' }}>

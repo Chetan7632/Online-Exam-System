@@ -45,10 +45,9 @@ const Register = () => {
       minHeight: '100vh',
       padding: '20px'
     }}>
-      <div className="glass-panel" style={{
+      <div className="glass-panel responsive-panel-padding" style={{
         width: '100%',
         maxWidth: '450px',
-        padding: '40px',
         border: '1px solid rgba(189, 0, 255, 0.15)',
         boxShadow: 'var(--shadow-purple)'
       }}>

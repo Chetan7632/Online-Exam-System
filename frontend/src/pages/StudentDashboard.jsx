@@ -78,10 +78,7 @@ const StudentDashboard = () => {
   return (
     <div className="dashboard-container">
       {/* Welcome & System Status Banner */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+      <div className="responsive-flex-row" style={{
         marginBottom: '36px',
         background: 'rgba(0, 229, 255, 0.03)',
         border: '1px solid rgba(0, 229, 255, 0.1)',
@@ -95,6 +92,7 @@ const StudentDashboard = () => {
         <div style={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
           gap: '8px',
           background: 'rgba(16, 185, 129, 0.1)',
           padding: '8px 16px',
@@ -102,7 +100,8 @@ const StudentDashboard = () => {
           border: '1px solid rgba(16, 185, 129, 0.3)',
           color: '#10b981',
           fontSize: '0.85rem',
-          fontWeight: '600'
+          fontWeight: '600',
+          alignSelf: 'flex-start'
         }}>
           <ShieldCheck size={18} />
           PROCTORING LINK ONLINE

@@ -67,10 +67,9 @@ const Profile = () => {
       minHeight: '80vh',
       padding: '40px 20px'
     }}>
-      <div className="glass-panel" style={{
+      <div className="glass-panel responsive-panel-padding" style={{
         width: '100%',
         maxWidth: '550px',
-        padding: '40px',
         border: '1px solid rgba(0, 229, 255, 0.15)',
         boxShadow: 'var(--shadow-neon)'
       }}>

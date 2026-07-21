@@ -102,9 +102,8 @@ const ExamDetails = () => {
         <p style={{ color: 'var(--text-secondary)' }}>Pre-flight authorization and hardware calibration workspace</p>
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '5fr 4fr',
+      <div className="responsive-split-grid" style={{
+        '--desktop-cols': '5fr 4fr',
         gap: '32px'
       }}>
         {/* Left Column: Instructions and Core Data */}

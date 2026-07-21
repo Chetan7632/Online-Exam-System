@@ -31,8 +31,7 @@ const Home = () => {
           </span>
         </div>
         
-        <h1 className="title-glow" style={{
-          fontSize: '3rem',
+        <h1 className="title-glow responsive-title-h1" style={{
           fontWeight: '900',
           lineHeight: '1.2',
           marginBottom: '20px',

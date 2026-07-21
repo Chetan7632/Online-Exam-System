@@ -242,9 +242,8 @@ const EditExam = () => {
         </div>
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '7fr 5fr',
+      <div className="responsive-split-grid" style={{
+        '--desktop-cols': '7fr 5fr',
         gap: '32px'
       }}>
         {/* Left Column: Core settings & Questions Draft */}

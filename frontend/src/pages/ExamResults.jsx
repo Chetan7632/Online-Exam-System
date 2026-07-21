@@ -82,7 +82,7 @@ const ExamResults = () => {
       </div>
 
       {/* Grade Card Summary */}
-      <div className="glass-panel" style={{
+      <div className="glass-panel responsive-split-grid" style={{
         padding: '36px',
         background: attempt.isPassed
           ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(10, 14, 23, 0.8))'
@@ -90,8 +90,7 @@ const ExamResults = () => {
         border: `1px solid ${attempt.isPassed ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)'}`,
         borderRadius: '16px',
         marginBottom: '32px',
-        display: 'grid',
-        gridTemplateColumns: '1fr 240px',
+        '--desktop-cols': '1fr 240px',
         gap: '30px',
         alignItems: 'center'
       }}>
@@ -269,7 +268,7 @@ const ExamResults = () => {
 
                 {/* MCQ details */}
                 {q.questionType === 'mcq' && q.options && (
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px' }}>
+                  <div className="responsive-options-grid" style={{ marginBottom: '20px' }}>
                     {q.options.map((opt, oIdx) => {
                       const isStudentChoice = studentAnswer === oIdx.toString();
                       const isCorrectChoice = q.correctAnswer === oIdx.toString();

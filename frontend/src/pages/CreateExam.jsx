@@ -168,9 +168,8 @@ const CreateExam = () => {
         <p style={{ color: 'var(--text-secondary)' }}>Configure variables and construct examinations using AI or manual tools.</p>
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '7fr 5fr',
+      <div className="responsive-split-grid" style={{
+        '--desktop-cols': '7fr 5fr',
         gap: '32px'
       }}>
         {/* Left Column: Core settings & Questions Draft */}

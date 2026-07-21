@@ -111,12 +111,12 @@ const TeacherDashboard = () => {
   return (
     <div className="dashboard-container">
       {/* Header Panel */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '36px' }}>
+      <div className="responsive-flex-row" style={{ marginBottom: '36px' }}>
         <div>
           <h1 className="title-glow" style={{ fontSize: '2rem', marginBottom: '6px' }}>Teacher Terminal</h1>
           <p style={{ color: 'var(--text-secondary)' }}>Manage questions, track exam attempts, and review AI proctor logs</p>
         </div>
-        <Link to="/create-exam" className="btn btn-primary">
+        <Link to="/create-exam" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
           <Plus size={18} /> Create Exam
         </Link>
       </div>
@@ -200,7 +200,7 @@ const TeacherDashboard = () => {
       {/* Grid: Exams Panel & Performance Graph */}
       <div className="grid-cols-3" style={{ marginBottom: '40px' }}>
         {/* Exams List (Span 2 columns) */}
-        <div className="glass-panel" style={{ gridColumn: 'span 2', padding: '28px' }}>
+        <div className="glass-panel col-span-2-desktop" style={{ padding: '28px' }}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FileText size={18} color="#00e5ff" /> Live Examinations ({exams.length})
           </h3>
