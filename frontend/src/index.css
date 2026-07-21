@@ -506,3 +506,232 @@ select.form-input {
   --border-subtle: rgba(255, 255, 255, 0.05);
   --bg-subtle: rgba(255, 255, 255, 0.03);
 }
+
+/* ==========================================
+   Responsive Design System Classes
+   ========================================== */
+
+.responsive-panel-padding {
+  padding: 40px;
+}
+
+.responsive-split-grid {
+  display: grid;
+  grid-template-columns: var(--desktop-cols, 1fr);
+  gap: 24px;
+}
+
+.col-span-2-desktop {
+  grid-column: span 2;
+}
+
+.responsive-flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.responsive-title-h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.responsive-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Navbar Responsive Components */
+.nav-desktop-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-desktop-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100vh;
+  background: rgba(10, 14, 23, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 1000;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+  border-left: 1px solid rgba(0, 229, 255, 0.15);
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 36px 28px;
+  gap: 24px;
+  overflow-y: auto;
+}
+
+.nav-mobile-drawer.open {
+  right: 0;
+}
+
+.nav-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-mobile-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Secure Exam Workspace Responsive Layout */
+.take-exam-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 100vh;
+  background: #070a0f;
+  font-family: var(--font-sans);
+}
+
+.take-exam-sidebar {
+  background: rgba(10, 14, 23, 0.9);
+  border-right: 1px solid rgba(0, 229, 255, 0.1);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+}
+
+.take-exam-main {
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-y: auto;
+}
+
+/* Proctor Drawer for Mobile/Tablet */
+.proctor-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.proctor-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.proctor-drawer-content {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100vh;
+  background: rgba(10, 14, 23, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(0, 229, 255, 0.15);
+  padding: 28px 24px;
+  overflow-y: auto;
+  z-index: 1001;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.proctor-drawer-content.open {
+  right: 0;
+}
+
+/* Breakpoint Queries */
+@media (max-width: 1024px) {
+  .take-exam-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .take-exam-sidebar {
+    display: none !important;
+  }
+  .take-exam-main {
+    padding: 20px 16px !important;
+  }
+  .responsive-split-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .col-span-2-desktop {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-panel-padding {
+    padding: 24px 16px !important;
+  }
+  .responsive-flex-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px;
+  }
+  .responsive-title-h1 {
+    font-size: 2rem !important;
+  }
+  .nav-desktop-links, .nav-desktop-actions {
+    display: none !important;
+  }
+  .nav-mobile-toggle {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .responsive-options-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Light Theme overrides for new responsive classes */
+:root.light-theme .nav-mobile-drawer,
+:root.light-theme .proctor-drawer-content {
+  background: rgba(245, 247, 251, 0.98);
+  border-left: 1px solid rgba(0, 119, 182, 0.15);
+}
