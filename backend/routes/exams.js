@@ -36,12 +36,18 @@ router.get('/', protect, async (req, res) => {
     const sanitizedExams = exams.map(exam => {
       const examObj = exam.toObject ? exam.toObject() : exam;
       
-      // If student, remove correct answers
+      // If student, remove correct answers and shuffle questions
       if (req.user.role === 'student' && examObj.questions) {
         examObj.questions = examObj.questions.map(q => {
           const { correctAnswer, ...rest } = q;
           return rest;
         });
+
+        // Shuffle questions for each student
+        for (let i = examObj.questions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [examObj.questions[i], examObj.questions[j]] = [examObj.questions[j], examObj.questions[i]];
+        }
       }
       return examObj;
     });
@@ -78,13 +84,19 @@ router.get('/:id', protect, async (req, res) => {
 
     const examObj = exam.toObject ? exam.toObject() : exam;
 
-    // Secure cheat prevention: If role is student, delete answers
+    // Secure cheat prevention: If role is student, delete answers and shuffle questions
     if (req.user.role === 'student') {
       if (examObj.questions) {
         examObj.questions = examObj.questions.map(q => {
           const { correctAnswer, ...rest } = q;
           return rest;
         });
+
+        // Shuffle questions for each student
+        for (let i = examObj.questions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [examObj.questions[i], examObj.questions[j]] = [examObj.questions[j], examObj.questions[i]];
+        }
       }
     }
 
